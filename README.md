@@ -805,3 +805,5 @@ Ways to contribute
 - Fix something and open a pull request
 - Fix documentation
 - Spread the word
+- Like this tool? Star and fork
+
