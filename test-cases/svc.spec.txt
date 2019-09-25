@@ -1,0 +1,32 @@
+KIND:     Service
+VERSION:  v1
+
+RESOURCE: spec <Object>
+
+DESCRIPTION:
+     Spec defines the behavior of a service.
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+
+     ServiceSpec describes the attributes that a user creates on a service.
+
+FIELDS:
+   clusterIP	<string>
+   externalIPs	<[]string>
+   externalName	<string>
+   externalTrafficPolicy	<string>
+   healthCheckNodePort	<integer>
+   loadBalancerIP	<string>
+   loadBalancerSourceRanges	<[]string>
+   ports	<[]Object>
+      name	<string>
+      nodePort	<integer>
+      port	<integer>
+      protocol	<string>
+      targetPort	<string>
+   publishNotReadyAddresses	<boolean>
+   selector	<map[string]string>
+   sessionAffinity	<string>
+   sessionAffinityConfig	<Object>
+      clientIP	<Object>
+         timeoutSeconds	<integer>
+   type	<string>

@@ -1,0 +1,91 @@
+KIND:     Service
+VERSION:  v1
+
+DESCRIPTION:
+     Service is a named abstraction of software service (for example, mysql)
+     consisting of local port (for example 3306) that the proxy listens on, and
+     the selector that determines which pods will answer requests sent through
+     the proxy.
+
+FIELDS:
+   apiVersion	<string>
+   kind	<string>
+   metadata	<Object>
+      annotations	<map[string]string>
+      clusterName	<string>
+      creationTimestamp	<string>
+      deletionGracePeriodSeconds	<integer>
+      deletionTimestamp	<string>
+      finalizers	<[]string>
+      generateName	<string>
+      generation	<integer>
+      initializers	<Object>
+         pending	<[]Object>
+            name	<string>
+         result	<Object>
+            apiVersion	<string>
+            code	<integer>
+            details	<Object>
+               causes	<[]Object>
+                  field	<string>
+                  message	<string>
+                  reason	<string>
+               group	<string>
+               kind	<string>
+               name	<string>
+               retryAfterSeconds	<integer>
+               uid	<string>
+            kind	<string>
+            message	<string>
+            metadata	<Object>
+               continue	<string>
+               remainingItemCount	<integer>
+               resourceVersion	<string>
+               selfLink	<string>
+            reason	<string>
+            status	<string>
+      labels	<map[string]string>
+      managedFields	<[]Object>
+         apiVersion	<string>
+         fields	<map[string]>
+         manager	<string>
+         operation	<string>
+         time	<string>
+      name	<string>
+      namespace	<string>
+      ownerReferences	<[]Object>
+         apiVersion	<string>
+         blockOwnerDeletion	<boolean>
+         controller	<boolean>
+         kind	<string>
+         name	<string>
+         uid	<string>
+      resourceVersion	<string>
+      selfLink	<string>
+      uid	<string>
+   spec	<Object>
+      clusterIP	<string>
+      externalIPs	<[]string>
+      externalName	<string>
+      externalTrafficPolicy	<string>
+      healthCheckNodePort	<integer>
+      loadBalancerIP	<string>
+      loadBalancerSourceRanges	<[]string>
+      ports	<[]Object>
+         name	<string>
+         nodePort	<integer>
+         port	<integer>
+         protocol	<string>
+         targetPort	<string>
+      publishNotReadyAddresses	<boolean>
+      selector	<map[string]string>
+      sessionAffinity	<string>
+      sessionAffinityConfig	<Object>
+         clientIP	<Object>
+            timeoutSeconds	<integer>
+      type	<string>
+   status	<Object>
+      loadBalancer	<Object>
+         ingress	<[]Object>
+            hostname	<string>
+            ip	<string>

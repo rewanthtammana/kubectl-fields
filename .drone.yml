@@ -1,0 +1,68 @@
+kind: pipeline
+name: default
+
+steps:
+- name: cloning repo
+  image: alpine:3.10.2
+  volumes:
+    - name: repo
+      path: /order/
+  commands:
+    - apk update
+    - apk add git
+    - git clone "https://github.com/rewanth1997/order"
+
+- name: building repo
+  image: golang:alpine
+  volumes:
+    - name: repo
+      path: /order/
+  commands:
+    - cd order
+    - go build -o order_exe main.go
+    - ./order_exe -h
+    - mv ./order_exe /order/
+    
+- name: running test cases
+  image: golang:alpine
+  volumes:
+    - name: repo
+      path: /order/
+  commands:
+    - mv /order/order_exe /usr/bin/order # Move executable to global PATH
+
+    - cd order
+    
+    # kubectl explain --recursive po.spec | order capa
+    - cat test-cases/po.spec.txt | order capa > /tmp/po.spec_capa.sol
+    - diff /tmp/po.spec_capa.sol test-cases/po.spec_capa.sol
+    
+    # kubectl explain --recursive configMap.metadata.initializers | order -i uid
+    - cat test-cases/configMap.metadata.initializers.txt | order -i uid > /tmp/configMap.metadata.initializers_uid_i.sol
+    - diff /tmp/configMap.metadata.initializers_uid_i.sol test-cases/configMap.metadata.initializers_uid_i.sol
+    
+    # kubectl explain --recursive ingress.spec.rules | order service
+    - cat test-cases/ingress.spec.rules.txt | order service > /tmp/ingress.spec.rules_service.sol
+    - diff /tmp/ingress.spec.rules_service.sol test-cases/ingress.spec.rules_service.sol
+    
+    # kubectl explain --recursive po | order ver
+    - cat test-cases/po.txt | order ver > /tmp/po_ver.sol
+    - diff /tmp/po_ver.sol test-cases/po_ver.sol
+    
+    # kubectl explain --recursive svc.spec | order -i port
+    - cat test-cases/svc.spec.txt | order -i port > /tmp/svc.spec_port_i.sol
+    - diff /tmp/svc.spec_port_i.sol test-cases/svc.spec_port_i.sol
+    
+    # kubectl explain --recursive svc | order -i ip
+    - cat test-cases/svc.txt | order -i ip > /tmp/svc_ip_i.sol
+    - diff /tmp/svc_ip_i.sol test-cases/svc_ip_i.sol
+    
+    # kubectl explain daemonsets.spec.template --recursive | order -i secretref
+    - cat test-cases/daemonsets.spec.template.txt | order -i secretref > /tmp/daemonsets.spec.template_secretref_i.sol
+    - diff /tmp/daemonsets.spec.template_secretref_i.sol test-cases/daemonsets.spec.template_secretref_i.sol
+    
+    - echo "Everything looks great"
+    
+volumes:
+- name: repo
+  temp: {}

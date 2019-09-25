@@ -1,0 +1,2 @@
+containers.securityContext.capabilities
+initContainers.securityContext.capabilities
