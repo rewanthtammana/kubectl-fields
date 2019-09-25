@@ -2,6 +2,12 @@
 
 <h4 align="center">Kubectl recursive module parser</h4>
 
+<p align="center">
+  <a href="https://cloud.drone.io/rewanth1997/order">
+    <img src="https://cloud.drone.io/api/badges/rewanth1997/order/status.svg">
+  </a>
+</p>
+
 <p align="center">Order is a cli tool to parse <code>kubectl explain --recursive</code> module output and grep it in one-liner hierarchy format.</p> <p align="center">This tool is exclusively built for CKA/CKAD applicants.</p>
 
 ## Build
