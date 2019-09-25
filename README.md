@@ -1,6 +1,6 @@
 <h1 align="center">order</h1>
 
-<h4 align="center">Kubectl recursive module parser</h4>
+<h4 align="center">Kubectl resources hierarchy parsing tool</h4>
 
 <p align="center">
   <a href="https://cloud.drone.io/rewanth1997/order">
