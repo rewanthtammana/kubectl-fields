@@ -12,7 +12,7 @@ import (
 
 const (
     Author      = "Rewanth Cool"    // Package author: first name - last name
-    Version     = "0.1"       // Package version: major.minor.maintenance.revision
+    Version     = "0.1-alpha"       // Package version: major.minor.maintenance.revision
     ReleaseDate = "2019-25-09"      // Release date: year-month-day
 )
 
