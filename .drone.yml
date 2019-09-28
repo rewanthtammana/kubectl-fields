@@ -8,6 +8,7 @@ steps:
     - name: repo
       path: /order/
   commands:
+    - cd /
     - apk update
     - apk add git
     - git clone "https://github.com/rewanth1997/order"
@@ -18,12 +19,12 @@ steps:
     - name: repo
       path: /order/
   commands:
-    - cd order
+    - cp -r /order $GOPATH/src/
+    - cd $GOPATH/src/order
     - apk add git
     - go get ./...
-    - go build -o order_exe main.go
-    - ./order_exe -h
-    - mv ./order_exe /order/
+    - go build -o /order/order_exe main.go
+    - /order/order_exe -h
     
 - name: running test cases
   image: golang:alpine
@@ -33,7 +34,7 @@ steps:
   commands:
     - mv /order/order_exe /usr/bin/order # Move executable to global PATH
 
-    - cd order
+    - cd /order
     
     # kubectl explain --recursive po.spec | order capa
     - cat test-cases/po.spec.txt | order capa > /tmp/po.spec_capa.sol
