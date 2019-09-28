@@ -18,6 +18,11 @@ go build -o order main.go
 mv order /usr/bin
 ```
 
+Cross platform building
+```console
+GOOS=windows GOARCH=amd64 go build -o order.exe main.go
+```
+
 ## Usage
 
 ```console
