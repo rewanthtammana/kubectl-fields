@@ -19,6 +19,7 @@ steps:
       path: /order/
   commands:
     - cd order
+    - go get ./...
     - go build -o order_exe main.go
     - ./order_exe -h
     - mv ./order_exe /order/

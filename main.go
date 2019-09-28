@@ -7,7 +7,7 @@ import (
 	"flag"
 	"bufio"
 
-	"pkg/order"
+	"github.com/rewanth1997/order/pkg/order"
 )
 
 const (
