@@ -54,5 +54,5 @@ Options:
 	
 	input := getStdInput()
 	
-	order.Parse(input, *ignoreCase)
+	order.Parse(input, os.Args[1:], *ignoreCase)
 }

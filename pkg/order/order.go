@@ -2,7 +2,6 @@ package order
 
 import (
 	"fmt"
-	"os"
 	"strings"
 	"regexp"
 )
@@ -55,7 +54,7 @@ func findParentIndex(spaces []int, index int, tabLength int) int {
 }
 
 // Parses given kubectl resources hierarchy order
-func Parse(input string, ignoreCase bool) {
+func Parse(input string, patterns []string, ignoreCase bool) {
 	const Seperator = "FIELDS:"
 	const TabLength = 3
 
@@ -82,8 +81,8 @@ func Parse(input string, ignoreCase bool) {
 	var hierarchy string
 	var index int
 
-	for j:=1; j<len(os.Args); j++ {
-		pattern = os.Args[j]
+	for j:=0; j<len(patterns); j++ {
+		pattern = patterns[j]
 		for i:=0; i<len(fields) ;i++ {
 			// Single conditional statement to check status of ignore case flag
 			// The first condition refers to case sensitive pattern match
