@@ -23,7 +23,7 @@ steps:
     - cd $GOPATH/src/order
     - apk add git
     - go get ./...
-    - go build -o /order/order_exe main.go
+    - go build -o /order/order_exe .pipeline/test.go
     - /order/order_exe -h
     
 - name: running test cases
