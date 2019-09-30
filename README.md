@@ -10,6 +10,20 @@
 
 <p align="center">Kubectl-fields is a cli tool to parse <code>kubectl explain --recursive</code> output and grep matching pattern in one-liner hierarchy format.</p> <p align="center">This tool is exclusively built for CKA/CKAD applicants.</p>
 
+## Installation
+
+Installing with krew
+```console
+wget https://raw.githubusercontent.com/rewanth1997/kubectl-fields/master/deploy/krew/plugin.yaml
+kubectl krew install --manifest=./plugin.yaml
+```
+
+Installing with wget
+```console
+wget https://github.com/rewanth1997/kubectl-fields/releases/download/v1.0.0/kubectl-fields-Linux-x86_64.tar.gz
+sudo tar xvf kubectl-fields-Linux-x86_64.tar.gz -C /usr/bin/
+```
+
 ## Developer build
 
 Build from Makefile
