@@ -68,6 +68,28 @@ spec.sessionAffinityConfig.clientIP
 status.loadBalancer.ingress.ip
 ```
 
+### Examples the hard way
+
+```console
+$ kubectl explain --recursive po.spec | ./kubectl-fields --stdin ver
+dnsConfig.nameservers
+volumes.csi.driver
+volumes.flexVolume.driver
+volumes.iscsi.chapAuthDiscovery
+volumes.nfs.server
+
+$ kubectl explain --recursive po.spec | ./kubectl-fields --stdin --ignore-case ver
+containers.env.valueFrom.fieldRef.apiVersion
+dnsConfig.nameservers
+initContainers.env.valueFrom.fieldRef.apiVersion
+volumes.csi.driver
+volumes.downwardAPI.items.fieldRef.apiVersion
+volumes.flexVolume.driver
+volumes.iscsi.chapAuthDiscovery
+volumes.nfs.server
+volumes.projected.sources.downwardAPI.items.fieldRef.apiVersion
+```
+
 ## Pipeline
 
 This application uses [drone CI](https://github.com/drone/drone) for building and running all test cases.
@@ -100,9 +122,6 @@ rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl explain --recursive po.spec | gr
 
 In case if you need to find "version" attribute in services, then the below command is executed.
 
-<details>
-<summary><strong>kubectl explain svc | grep -i version</strong> (click to expand 7 lines output)</summary>
-
 ```console
 $ kubectl explain --recursive svc | grep -i version
 VERSION:  v1
@@ -114,12 +133,7 @@ VERSION:  v1
       resourceVersion	<string>
 ```
 
-</details>
-
 But it doesn't show the hierarchial order of attribute. It just shows the matching lines. You can use advanced grep functions and try to find the parent hierarchy of `capabilities` attribute.
-
-<details>
-<summary><strong>kubectl explain --recursive po.spec | grep capabilities -C 5</strong> (click to expand 23 lines output)</summary>
 
 ```console
 rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl explain --recursive po.spec | grep capabilities -C 5
@@ -148,7 +162,6 @@ rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl explain --recursive po.spec | gr
          readOnlyRootFilesystem <boolean>
 
 ```
-</details>
 
 But still it doesn't show the complete parent hierarchy order. The full list need to be printed, scrolled and analyzed to find the exact hierarchical structure.
 
@@ -788,7 +801,9 @@ FIELDS:
 
 ### Proposed solution approach
 
-**`kubectl-fields`** tool is an apt solution to this problem. This tool fixes the problem by parsing and processes the `kubectl explain --recursive` data to give a one-liner output instead of tree type hierarchy.
+**`kubectl-fields`** is the solution. This tool fixes the problem by parsing the `kubectl explain --recursive` output and returns a one-liner hierarchial structure instead of tree type hierarchy. This makes it easier for developers/users to analyze the resources hierarchy.
+
+To find capabilities order in po.spec resources, the following command can be executed.
 
 ```console
 rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields po.spec capabilities

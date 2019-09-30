@@ -22,12 +22,14 @@ import (
   "github.com/spf13/cobra"
 
   "github.com/rewanth1997/kubectl-fields/pkg/fields"
+  "github.com/rewanth1997/kubectl-fields/pkg/stdin"
 )
 
 
 var (
   cfgFile string
   ignoreCaseFlag bool
+  stdinFlag bool
   rootCmdDescriptionShort = "Kubectl resources hierarchy parsing plugin"
   rootCmdDescriptionLong = `Kubectl resources hierarchy parser.
   
@@ -42,7 +44,16 @@ spec.clusterIP
 spec.externalIPs
 spec.loadBalancerIP
 spec.sessionAffinityConfig.clientIP
-status.loadBalancer.ingress.ip`
+status.loadBalancer.ingress.ip
+
+Additional kubectl-fields example (the hard way: not recommended). Developed to run tests on pipeline
+
+$ kubectl explain --recursive po.spec | ./kubectl-fields --stdin ver
+dnsConfig.nameservers
+volumes.csi.driver
+volumes.flexVolume.driver
+volumes.iscsi.chapAuthDiscovery
+volumes.nfs.server`
 )
 
 
@@ -53,6 +64,13 @@ var rootCmd = &cobra.Command{
   Long: rootCmdDescriptionLong,
   Example: rootCmdExamples,
   Run: func(cmd *cobra.Command, args []string) {
+
+    if stdinFlag {
+      input := stdin.GetStdInput()
+      fields.Parse(input, os.Args[1:], ignoreCaseFlag)
+      return
+    }
+
     output, err := exec.Command("kubectl", "explain" , "--recursive", args[0]).Output()
     if err != nil {
       fmt.Println(err)
@@ -63,9 +81,10 @@ var rootCmd = &cobra.Command{
   },
 }
 
-// Creates ignore-case flag
+// Initiates ignore-case and stdin flags
 func init() {
   rootCmd.Flags().BoolVarP(&ignoreCaseFlag, "ignore-case", "i", false, "Ignore case distinction")
+  rootCmd.Flags().BoolVarP(&stdinFlag, "stdin", "", false, "Expects input via pipes")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
