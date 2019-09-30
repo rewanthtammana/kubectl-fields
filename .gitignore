@@ -1,0 +1,5 @@
+# Ignore vendor files
+vendor/*
+
+# Ignore binary releases
+releases/*

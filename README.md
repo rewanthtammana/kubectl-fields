@@ -12,14 +12,24 @@
 
 ## Developer build
 
-Build the binary with the following command
+Build from Makefile
+```console
+make build
+```
+
+Build only for Linux
+```console
+make build-linux
+```
+
+Build with go
 ```console
 go get ./...
 go build -o kubectl-fields main.go
 mv kubectl-fields /usr/bin
 ```
 
-Cross platform building
+Cross platform builds with go
 ```console
 go get ./...
 GOOS=windows GOARCH=amd64 go build -o kubectl-fields.exe main.go
