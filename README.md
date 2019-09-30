@@ -58,9 +58,19 @@ spec.loadBalancerIP
 spec.sessionAffinityConfig.clientIP
 status.loadBalancer.ingress.ip
 
+Additional kubectl-fields example (the hard way: not recommended). Developed to run tests on pipeline
+
+$ kubectl explain --recursive po.spec | ./kubectl-fields --stdin ver
+dnsConfig.nameservers
+volumes.csi.driver
+volumes.flexVolume.driver
+volumes.iscsi.chapAuthDiscovery
+volumes.nfs.server
+
 Flags:
   -h, --help          help for kubectl-fields
   -i, --ignore-case   Ignore case distinction
+      --stdin         Expects input via pipes
 ```
 
 ## Examples
