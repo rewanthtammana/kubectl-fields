@@ -1,55 +1,66 @@
-<h1 align="center">order</h1>
+<h1 align="center">kubectl-fields</h1>
 
 <h4 align="center">Kubectl resources hierarchy parsing tool</h4>
 
 <p align="center">
-  <a href="https://cloud.drone.io/rewanth1997/order">
-    <img src="https://cloud.drone.io/api/badges/rewanth1997/order/status.svg">
+  <a href="https://cloud.drone.io/rewanth1997/kubectl-fields">
+    <img src="https://cloud.drone.io/api/badges/rewanth1997/kubectl-fields/status.svg">
   </a>
 </p>
 
-<p align="center">Order is a cli tool to parse <code>kubectl explain --recursive</code> module output and grep it in one-liner hierarchy format.</p> <p align="center">This tool is exclusively built for CKA/CKAD applicants.</p>
+<p align="center">Kubectl-fields is a cli tool to parse <code>kubectl explain --recursive</code> output and grep matching pattern in one-liner hierarchy format.</p> <p align="center">This tool is exclusively built for CKA/CKAD applicants.</p>
 
-## Build
+## Developer build
 
 Build the binary with the following command
 ```console
 go get ./...
-go build -o order main.go
-mv order /usr/bin
+go build -o kubectl-fields main.go
+mv kubectl-fields /usr/bin
 ```
 
 Cross platform building
 ```console
 go get ./...
-GOOS=windows GOARCH=amd64 go build -o order.exe main.go
+GOOS=windows GOARCH=amd64 go build -o kubectl-fields.exe main.go
 ```
 
 ## Usage
 
 ```console
-rewanth@ubuntu:~/go/src/order$ order -h
-Usage of order:
-    kubectl explain --recursive RESOURCE | order PATTERN
-    kubectl explain --recursive RESOURCE | order -i PATTERN
+rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields -h
+Kubectl resources hierarchy parser.
 
-A parser to grep kubectl explain recursive module output it in a quick readable format.
+More info: https://github.com/rewanth1997/kubectl-fields
 
-This tool is very handy while attempting CKA/CKAD certification.
+Usage:
+  kubectl-fields [flags]
 
-Options:
-    -h Help module
-    -i Ignore case distinctions
+Examples:
+$ kubectl fields po.spec capa
+containers.securityContext.capabilities
+initContainers.securityContext.capabilities
+
+$ kubectl fields -i svc ip
+spec.clusterIP
+spec.externalIPs
+spec.loadBalancerIP
+spec.sessionAffinityConfig.clientIP
+status.loadBalancer.ingress.ip
+
+Flags:
+  -h, --help          help for kubectl-fields
+  -i, --ignore-case   Ignore case distinction
 ```
 
 ## Examples
 
 ```console
-rewanth@ubuntu:~/go/src/order$ kubectl explain --recursive po.spec | order capa
+$ kubectl fields po.spec capa
 containers.securityContext.capabilities
 initContainers.securityContext.capabilities
 
-rewanth@ubuntu:~/go/src/order$ kubectl explain --recursive svc | order -i ip
+$ kubectl fields -i svc ip
 spec.clusterIP
 spec.externalIPs
 spec.loadBalancerIP
@@ -82,7 +93,7 @@ Let's say you know that capabilities exist inside `po.spec`. You can apply recur
 You can try to grep for string, "capabilities". The output is as follows:
 
 ```console
-rewanth@ubuntu:~/go/src/order$ kubectl explain --recursive po.spec | grep capabilities
+rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl explain --recursive po.spec | grep capabilities
          capabilities   <Object>
          capabilities   <Object>
 ```
@@ -111,7 +122,7 @@ But it doesn't show the hierarchial order of attribute. It just shows the matchi
 <summary><strong>kubectl explain --recursive po.spec | grep capabilities -C 5</strong> (click to expand 23 lines output)</summary>
 
 ```console
-rewanth@ubuntu:~/go/src/order$ kubectl explain --recursive po.spec | grep capabilities -C 5
+rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl explain --recursive po.spec | grep capabilities -C 5
       resources <Object>
          limits <map[string]string>
          requests       <map[string]string>
@@ -147,7 +158,7 @@ Not only it will take so much time to scroll up and down to find parent of an el
 <summary><strong>kubectl explain --recursive po.spec</strong> (click to expand 624 lines output)</summary>
 
 ```console
-rewanth@ubuntu:~/go/src/order$ kubectl explain --recursive po.spec
+rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl explain --recursive po.spec
 KIND:     Pod
 VERSION:  v1
 
@@ -777,10 +788,10 @@ FIELDS:
 
 ### Proposed solution approach
 
-**`order`** tool is the perfect solution to this problem. This tool fixes the problem by parsing the `kubectl explain --recursive` data perfectly.
+**`kubectl-fields`** tool is an apt solution to this problem. This tool fixes the problem by parsing and processes the `kubectl explain --recursive` data to give a one-liner output instead of tree type hierarchy.
 
 ```console
-rewanth@ubuntu:~/go/src/order$ kubectl explain --recursive po.spec | order capabilities
+rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields po.spec capabilities
 containers.securityContext.capabilities
 initContainers.securityContext.capabilities
 ```
@@ -788,7 +799,7 @@ initContainers.securityContext.capabilities
 Similarly to find "version" attribute structure in `services` resource, the below command can be executed.
 
 ```console
-rewanth@ubuntu:~/go/src/order$ kubectl explain svc --recursive | order -i version
+rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields -i svc version
 apiVersion
 metadata.initializers.result.apiVersion
 metadata.initializers.result.metadata.resourceVersion
@@ -799,12 +810,13 @@ metadata.resourceVersion
 
 ## Author
 
-Rewanth Cool
+[Rewanth Cool](https://www.linkedin.com/in/rewanthcool/)
 
 ## Todo
 
 - [x] Document the basic usage for README
 - [x] Build pipeline to run testcases
+- [ ] Release the tool as krew package
 - [ ] Write documentation according to godoc standards
 - [ ] Release the tool as golang package
 - [ ] Release the tool as a debian package
