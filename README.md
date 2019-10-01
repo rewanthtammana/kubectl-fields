@@ -6,7 +6,7 @@
   <a href="https://cloud.drone.io/rewanth1997/kubectl-fields">
     <img src="https://cloud.drone.io/api/badges/rewanth1997/kubectl-fields/status.svg">
   </a>
-  <a href="https://goreportcard.com/badge/github.com/rewanth1997/kubectl-fields">
+  <a href="https://goreportcard.com/report/github.com/rewanth1997/kubectl-fields">
     <img src="https://goreportcard.com/badge/github.com/rewanth1997/kubectl-fields">
   </a>
   <a href="https://github.com/rewanth1997/kubectl-fields/blob/master/LICENSE">
