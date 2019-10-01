@@ -2,7 +2,7 @@
 
 VERSION_MAJOR  := 1
 VERSION_MINOR  := 0
-VERSION_PATCH  := 0
+VERSION_PATCH  := 1
 VERSION_SUFFIX := ""
 
 COMMIT  := $(shell git describe --always)
@@ -40,7 +40,7 @@ build-darwin:
 build-windows:
 	@echo "Creating Build for Windows..."
 	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Windows-x86_64/kubectl-fields.exe
-	@tar zcf ./releases/$(VERSION)/kubectl-fields-Windows-x86_64.tar.gz -C releases/$(VERSION)/Windows-x86_64 kubectl-fields.exe
+	@zip -j ./releases/$(VERSION)/kubectl-fields-Windows-x86_64.zip releases/$(VERSION)/Windows-x86_64/kubectl-fields.exe
 
 build: build-linux build-darwin build-windows
 

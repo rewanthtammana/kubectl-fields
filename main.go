@@ -18,5 +18,5 @@ package main
 import "github.com/rewanth1997/kubectl-fields/cmd"
 
 func main() {
-  cmd.Execute()
+	cmd.Execute()
 }

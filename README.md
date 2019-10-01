@@ -6,6 +6,12 @@
   <a href="https://cloud.drone.io/rewanth1997/kubectl-fields">
     <img src="https://cloud.drone.io/api/badges/rewanth1997/kubectl-fields/status.svg">
   </a>
+  <a href="https://goreportcard.com/badge/github.com/rewanth1997/kubectl-fields">
+    <img src="https://goreportcard.com/badge/github.com/rewanth1997/kubectl-fields">
+  </a>
+  <a href="https://github.com/rewanth1997/kubectl-fields/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
+  </a>
 </p>
 
 <p align="center">Kubectl-fields is a cli tool to parse <code>kubectl explain --recursive</code> output and grep matching pattern in one-liner hierarchy format.</p> <p align="center">This tool is exclusively built for CKA/CKAD applicants.</p>

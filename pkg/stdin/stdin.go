@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package tests is used only to run build tests on drone CI
+// Package stdin takes input from cli via pipes. Built especially to run build tests on drone CI
 package stdin
 
 import (
-	"os"
-	"io"
 	"bufio"
+	"io"
+	"os"
 )
 
 // GetStdInput method reads std input from kubectl explain recursive module
@@ -29,11 +29,11 @@ func GetStdInput() string {
 	var output []rune
 
 	for {
-			input, _, err := reader.ReadRune()
-			if err != nil && err == io.EOF {
-					break
-			}
-			output = append(output, input)
+		input, _, err := reader.ReadRune()
+		if err != nil && err == io.EOF {
+			break
+		}
+		output = append(output, input)
 	}
 	return string(output)
 }
