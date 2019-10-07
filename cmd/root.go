@@ -40,7 +40,7 @@ More info: https://github.com/rewanth1997/kubectl-fields`
 containers.securityContext.capabilities
 initContainers.securityContext.capabilities
 
-$ kubectl fields -i svc ip
+$ kubectl fields svc -i ip
 spec.clusterIP
 spec.externalIPs
 spec.loadBalancerIP

@@ -12,6 +12,9 @@
   <a href="https://github.com/rewanth1997/kubectl-fields/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
   </a>
+  <!-- <a href="https://github.com/rewanth1997/kubectl-fields/releases">
+    <img src="https://img.shields.io/github/downloads/rewanth1997/kubectl-fields/total.svg?style=for-the-badge">
+  </a> -->
 </p>
 
 <p align="center">Kubectl-fields is a cli tool to parse <code>kubectl explain --recursive</code> output and grep matching pattern in one-liner hierarchy format.</p> <p align="center">This tool is exclusively built for CKA/CKAD applicants.</p>
@@ -71,7 +74,7 @@ $ kubectl fields po.spec capa
 containers.securityContext.capabilities
 initContainers.securityContext.capabilities
 
-$ kubectl fields -i svc ip
+$ kubectl fields svc -i ip
 spec.clusterIP
 spec.externalIPs
 spec.loadBalancerIP
@@ -100,7 +103,7 @@ $ kubectl fields po.spec capa
 containers.securityContext.capabilities
 initContainers.securityContext.capabilities
 
-$ kubectl fields -i svc ip
+$ kubectl fields svc -i ip
 spec.clusterIP
 spec.externalIPs
 spec.loadBalancerIP
@@ -854,7 +857,7 @@ initContainers.securityContext.capabilities
 Similarly to find "version" attribute structure in `services` resource, the below command can be executed.
 
 ```console
-rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields -i svc version
+rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields svc -i version
 apiVersion
 metadata.initializers.result.apiVersion
 metadata.initializers.result.metadata.resourceVersion
