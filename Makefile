@@ -52,6 +52,6 @@ release:
 	@echo "Creating Releases..."
 	go get -u github.com/tcnksm/ghr
 	ghr -t ${GITHUB_TOKEN} $(VERSION) releases/$(VERSION)/
-	sha256sum releases/$(VERSION)/*.tar.gz > releases/$(VERSION)/SHA256SUM
+	sha256sum releases/$(VERSION)/*.{zip,tar.gz} > releases/$(VERSION)/SHA256SUM
 
 all: utilities lint dependency clean build
