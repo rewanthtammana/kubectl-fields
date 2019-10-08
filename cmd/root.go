@@ -22,6 +22,9 @@ import (
 	"github.com/spf13/cobra"
 	"os"
 	"os/exec"
+	"runtime"
+
+	"github.com/fatih/color"
 
 	"github.com/rewanth1997/kubectl-fields/pkg/fields"
 	"github.com/rewanth1997/kubectl-fields/pkg/stdin"
@@ -32,30 +35,22 @@ var (
 	ignoreCaseFlag          bool
 	stdinFlag               bool
 	noColorFlag				bool
+	red = color.New(color.FgRed).SprintFunc()
+	yellow = color.New(color.FgYellow).SprintFunc()
 	rootCmdDescriptionShort = "Kubectl resources hierarchy parsing plugin"
-	rootCmdDescriptionLong  = `Kubectl resources hierarchy parser.
+	rootCmdDescriptionLong  = `Kubectl-fields is a cli tool to parse ` + yellow("kubectl explain --recursive") + ` output and grep matching pattern in one-liner hierarchy format.
   
 More info: https://github.com/rewanth1997/kubectl-fields`
 
-	rootCmdExamples = `$ kubectl fields po.spec capa
-containers.securityContext.capabilities
-initContainers.securityContext.capabilities
+	rootCmdExamples = `Find resource field names:
+$ kubectl fields po.spec capa
+containers.securityContext.` + red("capa") + `bilities
+initContainers.securityContext.` + red("capa") + `bilities
 
-$ kubectl fields svc -i ip
-spec.clusterIP
-spec.externalIPs
-spec.loadBalancerIP
-spec.sessionAffinityConfig.clientIP
-status.loadBalancer.ingress.ip
-
-Additional kubectl-fields example (the hard way: not recommended). Developed to run tests on pipeline
-
-$ kubectl explain --recursive po.spec | ./kubectl-fields --stdin ver
-dnsConfig.nameservers
-volumes.csi.driver
-volumes.flexVolume.driver
-volumes.iscsi.chapAuthDiscovery
-volumes.nfs.server`
+Find resource field names case-insensitively:
+$ kubectl fields svc -i affinity
+spec.session` + red("Affinity") + `
+spec.session` + red("Affinity") + `Config`
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -65,6 +60,10 @@ var rootCmd = &cobra.Command{
 	Long:    rootCmdDescriptionLong,
 	Example: rootCmdExamples,
 	Run: func(cmd *cobra.Command, args []string) {
+
+		if runtime.GOOS == "windows" {
+			noColorFlag = true
+		}
 
 		if stdinFlag {
 			input := stdin.GetStdInput()
@@ -86,12 +85,30 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.Flags().BoolVarP(&ignoreCaseFlag, "ignore-case", "i", false, "Ignore case distinction")
 	rootCmd.Flags().BoolVarP(&stdinFlag, "stdin", "", false, "Expects input via pipes")
-	rootCmd.Flags().BoolVarP(&noColorFlag, "no-color", "", false, "Do not print colored output")
+	rootCmd.Flags().BoolVarP(&noColorFlag, "no-color", "", false, "Do not print colored output (Not supported on windows)")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+
+	// Removes the color ouptut with windows
+	if runtime.GOOS == "windows" {
+		rootCmd.Example = `Find resource field names:
+$ kubectl fields po.spec capa
+containers.securityContext.capabilities
+initContainers.securityContext.capabilities
+
+Find resource field names case-insensitively:
+$ kubectl fields svc -i affinity
+spec.sessionAffinity
+spec.sessionAffinityConfig`
+
+		rootCmd.Long = `Kubectl-fields is a cli tool to parse output and grep matching pattern in one-liner hierarchy format.
+
+More info: https://github.com/rewanth1997/kubectl-fields`
+	}
+
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
