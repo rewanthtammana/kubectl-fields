@@ -62,7 +62,7 @@ GOOS=windows GOARCH=amd64 go build -o kubectl-fields.exe main.go
 
 ```console
 rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields -h
-Kubectl resources hierarchy parser.
+Kubectl-fields is a cli tool to parse kubectl explain --recursive output and grep matching pattern in one-liner hierarchy format.
 
 More info: https://github.com/rewanth1997/kubectl-fields
 
@@ -70,10 +70,12 @@ Usage:
   kubectl-fields [flags]
 
 Examples:
+Find resource field names:
 $ kubectl fields po.spec capa
 containers.securityContext.capabilities
 initContainers.securityContext.capabilities
 
+Find resource field names case-insensitively:
 $ kubectl fields svc -i affinity
 spec.sessionAffinity
 spec.sessionAffinityConfig
@@ -81,7 +83,7 @@ spec.sessionAffinityConfig
 Flags:
   -h, --help          help for kubectl-fields
   -i, --ignore-case   Ignore case distinction
-      --no-color      Do not print colored output
+      --no-color      Do not print colored output (Not supported on windows)
       --stdin         Expects input via pipes
 ```
 
@@ -99,6 +101,20 @@ spec.loadBalancerIP
 spec.sessionAffinityConfig.clientIP
 status.loadBalancer.ingress.ip
 ```
+
+### Screenshots
+
+**Case insensitive match**
+
+![case-insensitive](https://user-images.githubusercontent.com/22347290/66392032-5c345d00-e9ec-11e9-913b-5d7493c63d44.PNG)
+
+**Case sensitive match**
+
+![case-sensitive](https://user-images.githubusercontent.com/22347290/66392033-5cccf380-e9ec-11e9-8b6d-8f2c7fbf33c2.PNG)
+
+**A combination of all features**
+
+![combo](https://user-images.githubusercontent.com/22347290/66392034-5cccf380-e9ec-11e9-862e-bad107037592.PNG)
 
 ## Pipeline
 

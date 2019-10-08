@@ -1,9 +1,9 @@
 .PHONY: utilities lint dependency clean build release all
 
 VERSION_MAJOR  := 1
-VERSION_MINOR  := 0
+VERSION_MINOR  := 1
 VERSION_PATCH  := 1
-VERSION_SUFFIX := ""
+VERSION_SUFFIX := "-beta"
 
 COMMIT  := $(shell git describe --always)
 PKGS    := $(shell go list ./...)
