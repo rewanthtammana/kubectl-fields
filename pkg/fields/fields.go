@@ -19,6 +19,7 @@ package fields
 
 import (
 	"fmt"
+	"github.com/rewanth1997/kubectl-fields/pkg/color"
 	"regexp"
 	"strings"
 )
@@ -75,8 +76,9 @@ func findParentIndex(spaces []int, index int, tabLength int) int {
 input: Expects kubectl explain --recursive output
 patterns: Hierarchy to be computed for given patterns
 ignoreCase: Ignore case distinction while pattern matching
+noColor: If set, it won't print the colored output
 */
-func Parse(input string, patterns []string, ignoreCase bool) {
+func Parse(input string, patterns []string, ignoreCase bool, noColor bool) {
 	const Separator = "FIELDS:"
 	const TabLength = 3
 
@@ -99,26 +101,30 @@ func Parse(input string, patterns []string, ignoreCase bool) {
 	// Process data for further analysis
 	spaces, fields = analyze(data)
 
-	var pattern string
+	// var pattern string
 	var hierarchy string
 	var index int
 
-	for j := 0; j < len(patterns); j++ {
-		pattern = patterns[j]
-		for i := 0; i < len(fields); i++ {
-			// Single conditional statement to check status of ignore case flag
-			// The first condition refers to case sensitive pattern match
-			// The second condition refers to case insensitive pattern match
-			if (!(ignoreCase) && strings.Contains(fields[i], pattern)) || (ignoreCase && strings.Contains(strings.ToLower(fields[i]), strings.ToLower(pattern))) {
-				hierarchy = fields[i]
-				index = i
-				for index != -1 {
-					index = findParentIndex(spaces, index, TabLength)
-					if index != -1 {
-						hierarchy = fields[index] + "." + hierarchy
-					}
+	// Compiled regex pattern for matching
+	r := regexp.MustCompile(strings.Join(patterns, "|"))
+	if ignoreCase {
+		r = regexp.MustCompile(`(?i)` + strings.Join(patterns, "|"))
+	}
+
+	for i := 0; i < len(fields); i++ {
+		if r.FindString(fields[i]) != "" {
+			hierarchy = fields[i]
+			index = i
+			for index != -1 {
+				index = findParentIndex(spaces, index, TabLength)
+				if index != -1 {
+					hierarchy = fields[index] + "." + hierarchy
 				}
+			}
+			if noColor {
 				fmt.Println(hierarchy)
+			} else {
+				color.Fill(hierarchy, r)
 			}
 		}
 	}

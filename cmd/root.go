@@ -31,6 +31,7 @@ var (
 	cfgFile                 string
 	ignoreCaseFlag          bool
 	stdinFlag               bool
+	noColorFlag				bool
 	rootCmdDescriptionShort = "Kubectl resources hierarchy parsing plugin"
 	rootCmdDescriptionLong  = `Kubectl resources hierarchy parser.
   
@@ -67,7 +68,7 @@ var rootCmd = &cobra.Command{
 
 		if stdinFlag {
 			input := stdin.GetStdInput()
-			fields.Parse(input, os.Args[1:], ignoreCaseFlag)
+			fields.Parse(input, os.Args[1:], ignoreCaseFlag, noColorFlag)
 			return
 		}
 
@@ -77,7 +78,7 @@ var rootCmd = &cobra.Command{
 			return
 		}
 
-		fields.Parse(string(output), args[1:], ignoreCaseFlag)
+		fields.Parse(string(output), args[1:], ignoreCaseFlag, noColorFlag)
 	},
 }
 
@@ -85,6 +86,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.Flags().BoolVarP(&ignoreCaseFlag, "ignore-case", "i", false, "Ignore case distinction")
 	rootCmd.Flags().BoolVarP(&stdinFlag, "stdin", "", false, "Expects input via pipes")
+	rootCmd.Flags().BoolVarP(&noColorFlag, "no-color", "", false, "Do not print colored output")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
