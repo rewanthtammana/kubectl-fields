@@ -37,31 +37,31 @@ steps:
     - cd /order/.pipeline
     
     # kubectl explain --recursive po.spec | order capa
-    - cat test-cases/po.spec.txt | kubectl-fields --stdin --no-color capa > /tmp/po.spec_capa.sol
+    - cat test-cases/po.spec.txt | kubectl-fields --stdin --no-color -I capa > /tmp/po.spec_capa.sol
     - diff /tmp/po.spec_capa.sol test-cases/po.spec_capa.sol
     
     # kubectl explain --recursive configMap.metadata.initializers | order -i uid
-    - cat test-cases/configMap.metadata.initializers.txt | kubectl-fields --stdin --no-color -i uid > /tmp/configMap.metadata.initializers_uid_i.sol
+    - cat test-cases/configMap.metadata.initializers.txt | kubectl-fields --stdin --no-color uid > /tmp/configMap.metadata.initializers_uid_i.sol
     - diff /tmp/configMap.metadata.initializers_uid_i.sol test-cases/configMap.metadata.initializers_uid_i.sol
     
     # kubectl explain --recursive ingress.spec.rules | order service
-    - cat test-cases/ingress.spec.rules.txt | kubectl-fields --stdin --no-color service > /tmp/ingress.spec.rules_service.sol
+    - cat test-cases/ingress.spec.rules.txt | kubectl-fields --stdin --no-color -I service > /tmp/ingress.spec.rules_service.sol
     - diff /tmp/ingress.spec.rules_service.sol test-cases/ingress.spec.rules_service.sol
     
     # kubectl explain --recursive po | order ver
-    - cat test-cases/po.txt | kubectl-fields --stdin --no-color ver > /tmp/po_ver.sol
+    - cat test-cases/po.txt | kubectl-fields --stdin --no-color -I ver > /tmp/po_ver.sol
     - diff /tmp/po_ver.sol test-cases/po_ver.sol
     
     # kubectl explain --recursive svc.spec | order -i port
-    - cat test-cases/svc.spec.txt | kubectl-fields --stdin --no-color -i port > /tmp/svc.spec_port_i.sol
+    - cat test-cases/svc.spec.txt | kubectl-fields --stdin --no-color port > /tmp/svc.spec_port_i.sol
     - diff /tmp/svc.spec_port_i.sol test-cases/svc.spec_port_i.sol
     
     # kubectl explain --recursive svc | order -i ip
-    - cat test-cases/svc.txt | kubectl-fields --stdin --no-color -i ip > /tmp/svc_ip_i.sol
+    - cat test-cases/svc.txt | kubectl-fields --stdin --no-color ip > /tmp/svc_ip_i.sol
     - diff /tmp/svc_ip_i.sol test-cases/svc_ip_i.sol
     
     # kubectl explain daemonsets.spec.template --recursive | order -i secretref
-    - cat test-cases/daemonsets.spec.template.txt | kubectl-fields --stdin --no-color -i secretref > /tmp/daemonsets.spec.template_secretref_i.sol
+    - cat test-cases/daemonsets.spec.template.txt | kubectl-fields --stdin --no-color secretref > /tmp/daemonsets.spec.template_secretref_i.sol
     - diff /tmp/daemonsets.spec.template_secretref_i.sol test-cases/daemonsets.spec.template_secretref_i.sol
     
     - echo "Everything looks great"

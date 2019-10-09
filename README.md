@@ -17,7 +17,7 @@
   </a> -->
 </p>
 
-<p align="center">Kubectl-fields is a cli tool to parse <code>kubectl explain --recursive</code> output and grep matching pattern in one-liner hierarchy format.</p> <p align="center">This tool is exclusively built for CKA/CKAD applicants.</p>
+<p align="center">Kubectl-fields is a cli tool to parse <code>kubectl explain --recursive</code> output to match given field and print its parental hierarchy in one-liner format.</p>
 
 ## Installation
 
@@ -29,7 +29,7 @@ kubectl krew install --manifest=./plugin.yaml
 
 Installing with wget
 ```console
-wget https://github.com/rewanth1997/kubectl-fields/releases/download/v1.0.0/kubectl-fields-Linux-x86_64.tar.gz
+wget https://github.com/rewanth1997/kubectl-fields/releases/download/v1.2.0-beta/kubectl-fields-Linux-x86_64.tar.gz
 sudo tar xvf kubectl-fields-Linux-x86_64.tar.gz -C /usr/bin/
 ```
 
@@ -70,51 +70,36 @@ Usage:
   kubectl-fields [flags]
 
 Examples:
-Find resource field names:
-$ kubectl fields po.spec capa
-containers.securityContext.capabilities
-initContainers.securityContext.capabilities
-
-Find resource field names case-insensitively:
-$ kubectl fields svc -i affinity
+Find resource field hierarchy:
+$ kubectl fields svc affinity
 spec.sessionAffinity
 spec.sessionAffinityConfig
 
+Find resource field hierarchy (case sensitive match):
+$ kubectl fields po.spec.volumes -I Ver
+downwardAPI.items.fieldRef.apiVersion
+projected.sources.downwardAPI.items.fieldRef.apiVersion
+
 Flags:
-  -h, --help          help for kubectl-fields
-  -i, --ignore-case   Ignore case distinction
-      --no-color      Do not print colored output (Not supported on windows)
-      --stdin         Expects input via pipes
+  -I, --case-sensitive   Case sensitive pattern match
+  -h, --help             help for kubectl-fields
+      --no-color         Do not print colored output
+      --stdin            Expects input via pipes
 ```
 
 ## Examples
 
-```console
-$ kubectl fields po.spec capa
-containers.securityContext.capabilities
-initContainers.securityContext.capabilities
-
-$ kubectl fields svc -i ip
-spec.clusterIP
-spec.externalIPs
-spec.loadBalancerIP
-spec.sessionAffinityConfig.clientIP
-status.loadBalancer.ingress.ip
-```
-
-### Screenshots
-
-**Case insensitive match**
-
-![case-insensitive](https://user-images.githubusercontent.com/22347290/66392032-5c345d00-e9ec-11e9-913b-5d7493c63d44.PNG)
+**Default match**
+![default-match](https://user-images.githubusercontent.com/22347290/66461949-b4746900-ea97-11e9-83db-8ad643a31808.PNG)
 
 **Case sensitive match**
+![case-sensitive-match](https://user-images.githubusercontent.com/22347290/66461959-bccca400-ea97-11e9-989e-a43d9f52d09f.PNG)
 
-![case-sensitive](https://user-images.githubusercontent.com/22347290/66392033-5cccf380-e9ec-11e9-8b6d-8f2c7fbf33c2.PNG)
+**Combination of features**
+![combo](https://user-images.githubusercontent.com/22347290/66461990-c81fcf80-ea97-11e9-93a6-7aa9077f5d5d.PNG)
 
-**A combination of all features**
-
-![combo](https://user-images.githubusercontent.com/22347290/66392034-5cccf380-e9ec-11e9-862e-bad107037592.PNG)
+**Output on windows cmd**
+![windows-all](https://user-images.githubusercontent.com/22347290/66462021-d8d04580-ea97-11e9-8ac7-51fb5fe79439.PNG)
 
 ## Pipeline
 

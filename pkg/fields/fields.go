@@ -75,10 +75,10 @@ func findParentIndex(spaces []int, index int, tabLength int) int {
 /*
 input: Expects kubectl explain --recursive output
 patterns: Hierarchy to be computed for given patterns
-ignoreCase: Ignore case distinction while pattern matching
+caseSensitive: Case sensitive pattern match
 noColor: If set, it won't print the colored output
 */
-func Parse(input string, patterns []string, ignoreCase bool, noColor bool) {
+func Parse(input string, patterns []string, caseSensitive bool, noColor bool) {
 	const Separator = "FIELDS:"
 	const TabLength = 3
 
@@ -106,9 +106,9 @@ func Parse(input string, patterns []string, ignoreCase bool, noColor bool) {
 	var index int
 
 	// Compiled regex pattern for matching
-	r := regexp.MustCompile(strings.Join(patterns, "|"))
-	if ignoreCase {
-		r = regexp.MustCompile(`(?i)` + strings.Join(patterns, "|"))
+	r := regexp.MustCompile(`(?i)` + strings.Join(patterns, "|"))
+	if caseSensitive {
+		r = regexp.MustCompile(strings.Join(patterns, "|"))
 	}
 
 	for i := 0; i < len(fields); i++ {

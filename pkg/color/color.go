@@ -18,11 +18,18 @@ limitations under the License.
 package color
 
 import (
-	"fmt"
+	"log"
 	"github.com/fatih/color"
+	"github.com/mattn/go-colorable"
 	"index/suffixarray"
 	"regexp"
 )
+
+// Sets colorable output for all terminals
+func init() {
+	log.SetOutput(colorable.NewColorableStdout())
+	log.SetFlags(0)
+}
 
 // Fill function colors the matching patterns in a string
 /*
@@ -45,5 +52,5 @@ func Fill(s string, r *regexp.Regexp) {
 	}
 	newstr = newstr + s[old:]
 
-	fmt.Printf(newstr + "\n")
+	log.Print(newstr)
 }

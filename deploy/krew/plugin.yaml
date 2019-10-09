@@ -50,7 +50,8 @@ spec:
       https://github.com/rewanth1997/kubectl-fields/blob/master/README.md
   shortDescription: Kubectl resources hierarchy parser
   description: |
-    Kubectl resources hierarchy parser.
+    kubectl-fields parses specified kubectl resources to match given pattern(s).
+    It prints matched fields parental hierarchy in one-liner format.
 
     More on https://github.com/rewanth1997/kubectl-fields
 
