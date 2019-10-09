@@ -90,15 +90,19 @@ Flags:
 ## Examples
 
 **Default match**
+
 ![default-match](https://user-images.githubusercontent.com/22347290/66461949-b4746900-ea97-11e9-83db-8ad643a31808.PNG)
 
 **Case sensitive match**
+
 ![case-sensitive-match](https://user-images.githubusercontent.com/22347290/66461959-bccca400-ea97-11e9-989e-a43d9f52d09f.PNG)
 
-**Combination of features**
+**Multi pattern match**
+
 ![combo](https://user-images.githubusercontent.com/22347290/66461990-c81fcf80-ea97-11e9-93a6-7aa9077f5d5d.PNG)
 
 **Output on windows cmd**
+
 ![windows-all](https://user-images.githubusercontent.com/22347290/66462021-d8d04580-ea97-11e9-8ac7-51fb5fe79439.PNG)
 
 ## Pipeline
