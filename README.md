@@ -23,8 +23,7 @@
 
 Installing with krew
 ```console
-wget https://raw.githubusercontent.com/rewanth1997/kubectl-fields/master/deploy/krew/plugin.yaml
-kubectl krew install --manifest=./plugin.yaml
+kubectl krew install fields
 ```
 
 Installing with wget
@@ -62,7 +61,8 @@ GOOS=windows GOARCH=amd64 go build -o kubectl-fields.exe main.go
 
 ```console
 rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields -h
-Kubectl-fields is a cli tool to parse kubectl explain --recursive output and grep matching pattern in one-liner hierarchy format.
+kubectl-fields parses specified kubectl resources to match given pattern(s).
+It prints matched fields parental hierarchy in one-liner format.
 
 More info: https://github.com/rewanth1997/kubectl-fields
 
@@ -861,4 +861,3 @@ Ways to contribute
 - Fix documentation
 - Spread the word
 - Like this tool? Star and fork
-
