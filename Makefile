@@ -2,7 +2,7 @@
 
 VERSION_MAJOR  := 1
 VERSION_MINOR  := 2
-VERSION_PATCH  := 2
+VERSION_PATCH  := 3
 VERSION_SUFFIX := ""
 
 COMMIT  := $(shell git describe --always)
@@ -31,19 +31,19 @@ build-linux:
 	@echo "Creating Build for Linux..."
 	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-x86_64/kubectl-fields
 	@cp LICENSE ./releases/$(VERSION)/Linux-x86_64
-	@tar zcf ./releases/$(VERSION)/kubectl-fields-Linux-x86_64.tar.gz -C releases/$(VERSION)/Linux-x86_64 kubectl-fields
+	@tar zcf ./releases/$(VERSION)/kubectl-fields-Linux-x86_64.tar.gz -C releases/$(VERSION)/Linux-x86_64 kubectl-fields LICENSE
 
 build-darwin:
 	@echo "Creating Build for macOS..."
 	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Darwin-x86_64/kubectl-fields
 	@cp LICENSE ./releases/$(VERSION)/Darwin-x86_64
-	@tar zcf ./releases/$(VERSION)/kubectl-fields-Darwin-x86_64.tar.gz -C releases/$(VERSION)/Darwin-x86_64 kubectl-fields
+	@tar zcf ./releases/$(VERSION)/kubectl-fields-Darwin-x86_64.tar.gz -C releases/$(VERSION)/Darwin-x86_64 kubectl-fields LICENSE
 
 build-windows:
 	@echo "Creating Build for Windows..."
 	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Windows-x86_64/kubectl-fields.exe
 	@cp LICENSE ./releases/$(VERSION)/Windows-x86_64
-	@zip -j ./releases/$(VERSION)/kubectl-fields-Windows-x86_64.zip releases/$(VERSION)/Windows-x86_64/kubectl-fields.exe
+	@zip -j ./releases/$(VERSION)/kubectl-fields-Windows-x86_64.zip releases/$(VERSION)/Windows-x86_64/kubectl-fields.exe LICENSE
 
 build: build-linux build-darwin build-windows
 
