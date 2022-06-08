@@ -3,18 +3,18 @@
 <h4 align="center">Kubectl resources hierarchy parsing tool</h4>
 
 <p align="center">
-  <a href="https://cloud.drone.io/rewanth1997/kubectl-fields">
-    <img src="https://cloud.drone.io/api/badges/rewanth1997/kubectl-fields/status.svg">
+  <a href="https://cloud.drone.io/rewanthtammana/kubectl-fields">
+    <img src="https://cloud.drone.io/api/badges/rewanthtammana/kubectl-fields/status.svg">
   </a>
-  <a href="https://goreportcard.com/report/github.com/rewanth1997/kubectl-fields">
-    <img src="https://goreportcard.com/badge/github.com/rewanth1997/kubectl-fields">
+  <a href="https://goreportcard.com/report/github.com/rewanthtammana/kubectl-fields">
+    <img src="https://goreportcard.com/badge/github.com/rewanthtammana/kubectl-fields">
   </a>
-  <a href="https://github.com/rewanth1997/kubectl-fields/blob/master/LICENSE">
+  <a href="https://github.com/rewanthtammana/kubectl-fields/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
   </a>
-  <!-- <a href="https://github.com/rewanth1997/kubectl-fields/releases">
-    <img src="https://img.shields.io/github/downloads/rewanth1997/kubectl-fields/total.svg?style=for-the-badge">
-  </a> -->
+  <a href="https://github.com/rewanthtammana/kubectl-fields/releases">
+    <img src="https://img.shields.io/github/downloads/rewanthtammana/kubectl-fields/total.svg?style=for-the-badge">
+  </a>
 </p>
 
 <p align="center">Kubectl-fields is a cli tool to parse <code>kubectl explain --recursive</code> output to match given field and print its parental hierarchy in one-liner format.</p>
@@ -28,7 +28,7 @@ kubectl krew install fields
 
 Installing with wget
 ```console
-wget https://github.com/rewanth1997/kubectl-fields/releases/download/v1.2.0-beta/kubectl-fields-Linux-x86_64.tar.gz
+wget https://github.com/rewanthtammana/kubectl-fields/releases/download/v1.2.0-beta/kubectl-fields-Linux-x86_64.tar.gz
 sudo tar xvf kubectl-fields-Linux-x86_64.tar.gz -C /usr/bin/
 ```
 
@@ -64,7 +64,7 @@ rewanth@ubuntu:~/go/src/kubectl-fields$ kubectl fields -h
 kubectl-fields parses specified kubectl resources to match given pattern(s).
 It prints matched fields parental hierarchy in one-liner format.
 
-More info: https://github.com/rewanth1997/kubectl-fields
+More info: https://github.com/rewanthtammana/kubectl-fields
 
 Usage:
   kubectl-fields [flags]
